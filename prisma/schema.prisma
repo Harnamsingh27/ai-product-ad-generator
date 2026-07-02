@@ -1,14 +1,12 @@
 // Prisma schema for the AI Product Ad Generator
-// Defaults to SQLite for local development (DATABASE_URL=file:./dev.db)
-// To use PostgreSQL in production, change provider to "postgresql" and set
-// DATABASE_URL to a Postgres connection string.
+// Uses PostgreSQL (e.g. Neon) both locally and in production, read from DATABASE_URL.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

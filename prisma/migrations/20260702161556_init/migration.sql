@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Generation" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "brandName" TEXT NOT NULL,
     "productName" TEXT NOT NULL,
     "productDescription" TEXT NOT NULL,
@@ -15,5 +15,7 @@ CREATE TABLE "Generation" (
     "imagePrompt" TEXT NOT NULL,
     "creativeDirection" TEXT NOT NULL,
     "generatedImage" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Generation_pkey" PRIMARY KEY ("id")
 );

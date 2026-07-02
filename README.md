@@ -26,7 +26,7 @@ Small brands and solo founders need marketing creative fast, but writing ad copy
 
 **Backend:** Node.js, Express, TypeScript, Zod for input validation
 
-**Database:** Prisma ORM, SQLite for local development, PostgreSQL-ready via `DATABASE_URL`
+**Database:** Prisma ORM, PostgreSQL via `DATABASE_URL` (e.g. [Neon](https://neon.tech))
 
 **AI:** OpenAI SDK, configurable text model (`AI_TEXT_MODEL`) and image model (`AI_IMAGE_MODEL`)
 
@@ -49,6 +49,9 @@ ai-product-ad-generator/
   prisma/          Prisma schema and migrations
   package.json     Root workspace scripts
   .env.example     Environment variable template
+  render.yaml      Render deployment config for the backend
+  vercel.json      Vercel deployment config for the frontend
+  DEPLOYMENT.md     Step-by-step deployment guide
 ```
 
 ## How to run locally
@@ -57,6 +60,7 @@ ai-product-ad-generator/
 
 - Node.js 18 or later
 - npm
+- A PostgreSQL database (a free [Neon](https://neon.tech) project works for local dev too)
 
 ### 1. Install dependencies
 
@@ -72,7 +76,7 @@ This installs dependencies for the root, `client`, and `server` workspaces, and 
 cp .env.example .env
 ```
 
-By default `DATABASE_URL=file:./dev.db` uses SQLite, so no database setup is required. Leave `OPENAI_API_KEY` blank to run in demo mode, or add your key to enable real AI generation.
+Set `DATABASE_URL` to your PostgreSQL connection string. Leave `OPENAI_API_KEY` blank to run in demo mode, or add your key to enable real AI generation. Leave `CORS_ORIGIN` blank for local dev.
 
 ### 3. Run the database migration
 
@@ -80,7 +84,7 @@ By default `DATABASE_URL=file:./dev.db` uses SQLite, so no database setup is req
 npm run prisma:migrate
 ```
 
-This creates the SQLite database file and the `Generation` table.
+This applies the `Generation` table migration to your database.
 
 ### 4. Start the app
 
@@ -97,13 +101,14 @@ This runs the Express API on `http://localhost:5000` and the Vite dev server on 
 | `OPENAI_API_KEY` | Your OpenAI API key. Leave blank to run in demo mode.       | (empty)                |
 | `AI_TEXT_MODEL`  | OpenAI text model used to generate ad copy.                 | `gpt-4o-mini`          |
 | `AI_IMAGE_MODEL` | OpenAI image model used to generate the creative image.     | `gpt-image-1`          |
-| `DATABASE_URL`   | Prisma database connection string.                           | `file:./dev.db`        |
+| `DATABASE_URL`   | PostgreSQL connection string.                           | (required)        |
 | `PORT`           | Port the Express API listens on.                              | `5000`                 |
+| `CORS_ORIGIN`    | Allowed frontend origin. Leave blank locally to allow `http://localhost:5173` and any `*.vercel.app` preview URL. | (empty) |
 | `VITE_API_URL`   | API base URL used by the frontend (set in `client/.env` if different from default). | `http://localhost:5000` |
 
-### Using PostgreSQL instead of SQLite
+## Deploying
 
-Set `DATABASE_URL` to a PostgreSQL connection string, change the `provider` in `prisma/schema.prisma` from `sqlite` to `postgresql`, then run `npm run prisma:migrate` again.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions to deploy the frontend to Vercel, the backend to Render, and the database to Neon.
 
 ## Available scripts
 
