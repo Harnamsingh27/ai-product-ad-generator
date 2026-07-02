@@ -131,30 +131,6 @@ Run from the project root:
 
 If `OPENAI_API_KEY` is not set (or an OpenAI call fails), the backend generates deterministic mock ad copy from the form inputs and renders a branded SVG creative preview instead of calling the OpenAI image API. The frontend shows a clearly labeled demo mode banner so it is always obvious when output is mocked versus AI-generated.
 
-## Pushing to GitHub
-
-This project was built locally. To push it to your own GitHub account (`Harnamsingh27`):
-
-If the GitHub CLI is installed and authenticated, run from the project root:
-
-```bash
-gh repo create Harnamsingh27/ai-product-ad-generator --public --source=. --remote=origin --push
-```
-
-Otherwise, create the repository at github.com/new named `ai-product-ad-generator`, then run:
-
-```bash
-git remote add origin https://github.com/Harnamsingh27/ai-product-ad-generator.git
-git branch -M main
-git push -u origin main
-```
-
-## Resume bullets
-
-- Built a full-stack AI Product Ad Generator (React, TypeScript, Express, Prisma) that generates marketing headlines, ad copy, and images from structured product input using the OpenAI API
-- Designed a resilient demo mode that deterministically mocks AI text and SVG image output when no API key is present, keeping the app fully functional offline
-- Implemented a typed REST API with Zod validation, a Prisma-backed SQLite/PostgreSQL data layer, and a responsive two-column React dashboard with generation history and clipboard export
-
 ## License
 
 MIT
